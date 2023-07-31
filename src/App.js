@@ -1,18 +1,12 @@
 import React from "react";
-import { ReactDOM } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import GreetMsg from "./GreetMsg";
-import PaymentPage from "./PaymentPage";
+import { Route, Routes } from "react-router-dom";
 import Home from "./Home";
-
+import TransacQrForm from "./TransacQrForm";
 import Form from "./FigmaForm";
 import MyBooks from "./FigmaBooks";
 import FigmaBook from "./FigmaBook";
-import TransationQr from "./TransationQr";
-import TransacQrForm from "./TransacQrForm";
-import SignUp from "./SignUp";
-import Fetch from "./Fetch";
 import FigmaInfo from "./FigmaInfo";
+import SignUp from "./SignUp";
 
 const App = () => {
   return (
@@ -24,7 +18,7 @@ const App = () => {
       <Route path="/Book" element={<FigmaBook />} />
       <Route path="/signUp" element={<SignUp />} />
       <Route path="/info" element={<FigmaInfo />} />
-      <Route path="/Fetch" element={<Fetch />} />
+     
     </Routes>
   );
 };

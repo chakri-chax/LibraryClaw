@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import abi from "./abis/libraryV5.json";
+import abi from "../src/abis/libraryV5.json";
 import { ethers } from "ethers";
 import Fetch from "./Fetch";
 import { useNavigate } from "react-router-dom";
