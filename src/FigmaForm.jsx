@@ -138,11 +138,18 @@ const FigmaForm = () => {
         }
         return text;
       };
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const accounts = await provider.send("eth_requestAccounts", []);
-      const balance = await provider.getBalance(accounts[0]);
-      console.log("Balance", balance);
-      setButtonText(truncate(accounts[0], 4, 4, 11));
+
+      try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const accounts = await provider.send("eth_requestAccounts", []);
+        const balance = await provider.getBalance(accounts[0]);
+        console.log("Balance", balance);
+        setButtonText(truncate(accounts[0], 4, 4, 11));
+      } catch (error) {
+        toast.error(`Connect Metamask`)
+      }
+
+
     } else {
       // alert("Install metamask");
       toast.warning("Connect Metamask",{
@@ -161,10 +168,7 @@ const FigmaForm = () => {
     let path = `/Connect`;
     navigate(path);
   };
-  const hadleSignUp = () => {
-    let path = `/signUp`;
-    navigate(path);
-  };
+
   const handleBorrow = () => {
     let path = `/Borrow`;
     navigate(path);
@@ -174,15 +178,9 @@ const FigmaForm = () => {
     navigate(path);
   };
   const handleInfo =()=> navigate(`/info`)
-  const handlePayFee = () => {
-    let path = `/MyBooks/TransactionQr`;
-    navigate(path);
-  };
+ 
 
-  const reportError = (error) => {
-    console.log(JSON.stringify(error), "red");
-    throw new Error(error);
-  };
+
 
   return (
     <div className="form">
@@ -191,26 +189,26 @@ const FigmaForm = () => {
       <div className="div">
         <div className="connect">
           <div className="overlap-group">
-            <button onClick={ButtonText} className="text-wrapper">
+            <button style = {{border:"none",background:"none"}}onClick={ButtonText} className="text-wrapper">
               {buttonText}
             </button>
           </div>
         </div>
         <div className="navbar">
           <img className="pngwing" alt="Pngwing" src={logo} />
-          <button onClick={handleHome} className="h-1">
+          <button style = {{border:"none",background:"none"}}onClick={handleHome} className="h-1">
             Home
           </button>
-          <button onClick={handleBorrow} className="text-wrapper-2">
+          <button style = {{border:"none",background:"none"}}onClick={handleBorrow} className="text-wrapper-2">
             Borrow
           </button>
-          <button onClick={handleStore} className="text-wrapper-3">
+          <button style = {{border:"none",background:"none"}}onClick={handleStore} className="text-wrapper-3">
             Store
           </button>
-          <button onClick={handleInfo} className="text-wrapper-4">
+          <button style = {{border:"none",background:"none"}}onClick={handleInfo} className="text-wrapper-4">
             Info
           </button>
-          <button className="text-wrapper-5">Library Claw</button>
+          <button style = {{border:"none",background:"none"}}className="text-wrapper-5">Library Claw</button>
         </div>
         <div className="overlap">
           <div className="form-wrapper">
@@ -219,7 +217,7 @@ const FigmaForm = () => {
 
               <div>
               
-                <form className="my-form" onSubmit={handleSubmit}>
+                <form className="my-form" style={{fontSize:"20px"}} onSubmit={handleSubmit}>
                   <h1 className="h1" align="center">
                    <strong>Details</strong> 
                   </h1>
@@ -228,7 +226,7 @@ const FigmaForm = () => {
                       {" "}
                       <strong>Student ID :</strong>{" "}
                     </label>
-                    <input
+                    <input style={{fontSize:"20px"}} 
                       placeholder="N180001"
                       type="text"
                       onChange={(e) => {
@@ -242,7 +240,7 @@ const FigmaForm = () => {
                     <label htmlFor="Student Name :">
                       <strong>Student Name :</strong>{" "}
                     </label>
-                    <input
+                    <input style={{fontSize:"20px"}} 
                       placeholder="Alice"
                       type="text"
                       onChange={(e) => {
@@ -256,8 +254,8 @@ const FigmaForm = () => {
                     <label htmlFor="Book Id :">
                       <strong>Book ID :</strong>
                     </label>
-                    <input
-                      placeholder={values?values.bookId:"XundHJYd43nud"}
+                    <input style={{fontSize:"20px"}} 
+                      placeholder={values?values.bookId: "XundHJYd43nud"}
                       type="text"
                       onChange={(e) => {(values)?
                         setBookId(values.bookId): setBookId(e.target.value)
@@ -271,7 +269,7 @@ const FigmaForm = () => {
                     <label htmlFor="Book Name :">
                       <strong>Book Name :</strong>
                     </label>
-                    <input
+                    <input style={{fontSize:"20px"}} 
                       placeholder={values?values.bookName:"Harry Potter"}
                       type="text"
                       onChange={(e) => {
@@ -289,31 +287,8 @@ const FigmaForm = () => {
                     
                   </div>
                 </form>
-                {/* <br/><h2 style={{fontWeight:"bold",fontSize:"25px",marginLeft:"100px",textAlign:"center"}}>{succesfull}</h2> */}
-
-                {/* ************************************************ Recent Borrowings **************************************** */}
-                {/* <h1 align="center" >Recent Borrowings </h1> */}
-
-                {/* <div class="grid-container">
-    
-    {
-
-        people.map((person)=>{
-            const {id,studentId,studentName,bookId,bookName} = person;
-            return (
-                <div className="result-box">
                 
-                <div key={id}>
-                    <h2>Student Id : {studentId}</h2>
-                    <h4>Stundent Name :{studentName}</h4>
-                    <h4>Book Id    :{bookId}</h4>                           
-                    <h4>Book Name :{bookName}</h4>
-                </div>
-            </div>
-            )
-        })
-    }
-</div> */}
+
               </div>
             </div>
           </div>

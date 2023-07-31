@@ -18,10 +18,9 @@ const App = () => {
       <Route path="/Book" element={<FigmaBook />} />
       <Route path="/signUp" element={<SignUp />} />
       <Route path="/info" element={<FigmaInfo />} />
-     
+
     </Routes>
   );
 };
 
 export default App;
-//dont change routes
