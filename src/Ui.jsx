@@ -33,7 +33,7 @@ toast.configure()
     const balance = await provider.getBalance(accounts[0]);
     setButtonText(truncate(accounts[0], 4, 4, 11));
     } catch (error) {
-      toast.warning("Connect Metamask",{
+      toast.warning("Install and Connect Metamask",{
         position: toast.POSITION.TOP_CENTER
       })
     }
@@ -63,8 +63,9 @@ toast.configure()
   }
   
     const hadleSignUp =()=>{
-      let path = `/signUp`
-      navigate(path)
+      // let path = `/signUp`
+      // navigate(path)
+      toast.info("No Need to signUp")
 
     }
     const handleInfo =()=>navigate(`/info`)

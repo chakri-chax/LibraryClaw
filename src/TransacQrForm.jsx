@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 const TransacQrForm = () => {
+  
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   const location = useLocation();
@@ -46,7 +47,7 @@ const TransacQrForm = () => {
   const values = location.state;
   console.log("Values...", values);
 
-  const _feeAmt = values ? values.amt : 15;
+  const _feeAmt = values ? values.amt : "Go back and Update fee";
   const _bookId = values ? values.bookId : "BookIdDemo";
   const _bookName = values ? values.bookName : "Demo Book ";
   const _studentId = values ? values.studentId : "N180491";
@@ -67,7 +68,7 @@ const TransacQrForm = () => {
     _bookSerial
   );
   console.log("Book Serial", _bookSerial);
-
+useEffect (()=>{toast.info("Update your fee before pay")},[])
   useEffect(() => {
     handleTransaction();
     setFeeAmt(_feeAmt);
@@ -118,13 +119,14 @@ const TransacQrForm = () => {
           console.log("fee amt", _feeAmt, typeof _feeAmt);
           console.log("Student Id", _studentId, typeof _studentId);
 
-          if (difference >= 0.0149) {
+
+          if (difference >= ((_feeAmt /1000)-0.0001)) {
             setPic(images[1]);
             try {
               await contract.payFee(_studentId, _bookSerial, _feeAmt);
             } catch (error) {
               alert(`Error  :${error}`);
-              toast.error(`Error  :${error}`, {
+              toast.error(`Error  :${error.data}`, {
                 position: toast.POSITION.TOP_CENTER,
               });
             }
@@ -155,13 +157,13 @@ const TransacQrForm = () => {
       } catch (error) {
         // reportError(error)
         // alert(`Error Found ${error}`)
-        toast.error(`Error  :${error}`, {
+        toast.error(`Error  :${error.data}`, {
           position: toast.POSITION.TOP_CENTER,
         });
       }
     } else {
       // alert("Please Install Metamask");
-      toast.warning("Connect Metamask", {
+      toast.warning("Install and Connect Metamask", {
         position: toast.POSITION.TOP_CENTER,
       });
     }
@@ -187,7 +189,7 @@ const TransacQrForm = () => {
       setButtonText(truncate(accounts[0], 4, 4, 11));
     } else {
       // alert("Install metamask");//
-      toast.warning("Connect metamask", {
+      toast.warning("Install and Connect metamask", {
         position: toast.POSITION.TOP_CENTER,
       });
     }
@@ -199,14 +201,8 @@ const TransacQrForm = () => {
     let path = `/`;
     navigate(path);
   };
-  const handleConnect = async () => {
-    let path = `/Connect`;
-    navigate(path);
-  };
-  const hadleSignUp = () => {
-    let path = `/signUp`;
-    navigate(path);
-  };
+ 
+  
   const handleBorrow = () => {
     let path = `/Borrow`;
     navigate(path);
@@ -216,19 +212,13 @@ const TransacQrForm = () => {
     navigate(path);
   };
   const handleInfo = () => navigate(`/info`);
-  const handlePayFee = () => {
-    let path = `/MyBooks/TransactionQr`;
-    navigate(path);
-  };
+  
 
-  const reportError = (error) => {
-    console.log(JSON.stringify(error), "red");
-    throw new Error(error);
-  };
-
+  
   return (
     <>
       <div className="form">
+        
         <div className="div">
           <div className="connect">
             <div className="overlap-group">

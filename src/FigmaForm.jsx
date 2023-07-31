@@ -137,11 +137,11 @@ const FigmaForm = () => {
         console.log("Balance", balance);
         setButtonText(truncate(accounts[0], 4, 4, 11));
       } catch (error) {
-        toast.error(`Connect Metamask`);
+        toast.error(` Install and Connect Metamask`);
       }
     } else {
       // alert("Install metamask");
-      toast.warning("Connect Metamask", {
+      toast.warning(" Install and Connect Metamask", {
         position: toast.POSITION.TOP_CENTER,
       });
     }

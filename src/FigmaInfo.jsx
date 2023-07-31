@@ -39,9 +39,7 @@ const FigmaInfo = () => {
   const contractABI = abi;
 
   console.log("In Figma Info");
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-  const contract = new ethers.Contract(contractAddress, contractABI, signer);
+ 
 
 
   const [details,setDetails] = ("Details")
@@ -53,67 +51,75 @@ const FigmaInfo = () => {
   const [bookButton, setBoookButton] = useState("Borrow Book");
   const [feeAmt,setFeeAmt] = useState(0)
   const [people, setPeople] = useState([]);
+  const [contract,setContract] = useState();
   const [fee,setFee] = useState()
   let [transactionState, setTransactionState] = useState(0);
 
 
   // console.log("Book Name", _bookName);
   // console.log("Book ID",_bookId);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (e) => {try {
     
-
-    let i = 0;
-    while (true) {
-      console.log(studentId);
-      console.log(i);
+      e.preventDefault();
   
-      const myBook = await contract.GetDetails(studentId, i);
-
-      console.log("Book", myBook);
-      
-
-      const fee = ethers.utils.formatEther(myBook.lateFee);
-      
-      // setBookserial(_bookSerial)
-      console.log("Book Seial",bookSerial);
-      console.log("Fee", fee);
-      setFee(fee);
-      const length = await contract.BookCount(studentId);
-      console.log("length", length.toString());
-
-      if (i <= length - 1) {
-        i++;
-      } else {
-        break;
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, contractABI, signer);
+      setContract(contract)
+  
+      let i = 0;
+      while (true) {
+        console.log(studentId);
+        console.log(i);
+    
+        const myBook = await contract.GetDetails(studentId, i);
+  
+        console.log("Book", myBook);
+        
+  
+        const fee = ethers.utils.formatEther(myBook.lateFee);
+        
+        // setBookserial(_bookSerial)
+        console.log("Book Seial",bookSerial);
+        console.log("Fee", fee);
+        setFee(fee);
+        const length = await contract.BookCount(studentId);
+        console.log("length", length.toString());
+  
+        if (i <= length - 1) {
+          i++;
+        } else {
+          break;
+        }
+        const _name = await myBook.studentName;
+  
+        const _bookId = myBook.bookId;
+        const _bookName = myBook.bookName;
+        const _feeAmt = parseInt(myBook.lateFee);
+        setLateFee(_feeAmt)
+        const _studentName = myBook.studentName;
+        const _bookSerial = parseInt(myBook.bookSerial)
+        const _borrowTime = parseInt(myBook.BorrowTime)
+        console.log("Borrow Time",_borrowTime);
+  
+        const book = {
+          id: parseInt(myBook.bookSerial, 16),
+          _bookName,
+          _bookId,
+          _feeAmt,
+          _studentName,
+          _bookSerial,
+          _borrowTime
+        };
+  
+        setBooks((books) => {
+          return [...books, book];
+        });
       }
-      const _name = await myBook.studentName;
-
-      const _bookId = myBook.bookId;
-      const _bookName = myBook.bookName;
-      const _feeAmt = parseInt(myBook.lateFee);
-      setLateFee(_feeAmt)
-      const _studentName = myBook.studentName;
-      const _bookSerial = parseInt(myBook.bookSerial)
-      const _borrowTime = parseInt(myBook.BorrowTime)
-      console.log("Borrow Time",_borrowTime);
-
-      const book = {
-        id: parseInt(myBook.bookSerial, 16),
-        _bookName,
-        _bookId,
-        _feeAmt,
-        _studentName,
-        _bookSerial,
-        _borrowTime
-      };
-
-      setBooks((books) => {
-        return [...books, book];
-      });
-    }
-  };
+    
+  } catch (error) {
+    toast.error(`Install and connect Metamask`)
+  }};
   function timestampToIST(timestamp) {
     const milliseconds = timestamp * 1000;
     const dateObj = new Date(milliseconds);
@@ -189,7 +195,7 @@ const FigmaInfo = () => {
       setButtonText(truncate(accounts[0], 4, 4, 11));
     } else {
       // alert("Install metamask");
-      toast.warning("Connect Metamask",{
+      toast.warning(" Install and Connect Metamask",{
         position: toast.POSITION.TOP_CENTER
       })
     }
@@ -317,6 +323,8 @@ const FigmaInfo = () => {
 
                    {_feeAmt >=1 ? <button className="button" onClick={async () => {
                             try {
+
+
                               await contract.feeIncrement(studentId, id);
                             } catch (error) {
                               toast.error(`Contract Interaction Error ${error}`,{
