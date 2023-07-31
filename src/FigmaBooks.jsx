@@ -67,7 +67,7 @@ const FigmaBooks = () => {
     setSearch(search);
 
     console.log("search", search);
-  }, []);
+  });
 
   const handleSearch = (evt) => {
     if (evt.key === "Enter") {
