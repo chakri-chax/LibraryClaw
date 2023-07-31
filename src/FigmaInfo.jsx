@@ -241,26 +241,26 @@ const FigmaInfo = () => {
       <div className="div">
         <div className="connect">
           <div className="overlap-group">
-            <button onClick={ButtonText} className="text-wrapper">
+            <button style = {{border:"none",background:"none"}}onClick={ButtonText} className="text-wrapper">
               {buttonText}
             </button>
           </div>
         </div>
         <div className="navbar">
           <img className="pngwing" alt="Pngwing" src={logo} />
-          <button onClick={handleHome} className="h-1">
+          <button style = {{border:"none",background:"none"}}onClick={handleHome} className="h-1">
             Home
           </button>
-          <button onClick={handleBorrow} className="text-wrapper-2">
+          <button style = {{border:"none",background:"none"}}onClick={handleBorrow} className="text-wrapper-2">
             Borrow
           </button>
-          <button onClick={handleStore} className="text-wrapper-3">
+          <button style = {{border:"none",background:"none"}}onClick={handleStore} className="text-wrapper-3">
             Store
           </button>
-          <button onClick={handleInfo} className="text-wrapper-4">
+          <button style = {{border:"none",background:"none"}}onClick={handleInfo} className="text-wrapper-4">
             Info
           </button>
-          <button className="text-wrapper-5">Library Claw</button>
+          <button style = {{border:"none",background:"none"}}className="text-wrapper-5">Library Claw</button>
         </div>
         <div className="overlap">
           <div className="form-wrapper">
@@ -270,7 +270,7 @@ const FigmaInfo = () => {
         <br />
         <form className="my-form" onSubmit={handleSubmit}>
           <h1 className="h1" align="center">
-            Get Deatils
+            Get Details
           </h1>
           <div>
             <label htmlFor="Student ID :">
@@ -278,6 +278,7 @@ const FigmaInfo = () => {
               <strong>Student ID :</strong>{" "}
             </label>
             <input
+            style={{height:"30px",fontSize:"20px"}}
               placeholder="N180001"
               type="text"
               onChange={(e) => {
@@ -295,7 +296,7 @@ const FigmaInfo = () => {
           </div>
         </form>
         <div>
-          <div class="grid-container" style={{overflowY:"auto",overflowX:"hidden",height:"500px",marginTop:"10px",textAlign:"center"}}>
+          <div class="grid-container" style={{overflowY:"auto",overflowX:"hidden",height:"430px",marginLeft:"-50px",marginTop:"10px",textAlign:"center"}}>
             
             {books.map((book) => {
               const { id, _bookId, _bookName, _feeAmt ,_studentName,_bookSerial,_borrowTime} = book;
@@ -335,47 +336,13 @@ const FigmaInfo = () => {
                           
                           }}
                         >
-                        <strong>{_feeAmt} Pay </strong>  
+                        <strong> Pay {_feeAmt /1000} Matics </strong>  
                         </button>
                       </div>
                     ) :<strong>Late Fee : 0</strong>
                     
                     
-                    // _feeAmt > 1 && _feeAmt < 1000 ? (
-                    //   <button onClick={()=>{
-
-                    //     try {
-                    //       handleFetch(_feeAmt,_bookId,_bookName,studentId,_studentName,_bookSerial);
-                    //       console.log("Clicked",_feeAmt)
-                          
-                    //       ;
-                    //     } catch (error) {
-                    //       toast.error(`Error Found in Metamask ${error}`,{
-                    //         position: toast.POSITION.TOP_CENTER
-                    //       })
-                    //     }
-                    //   }} 
-                    //   className="button"> <strong>{`Pay ${_feeAmt} Wei`}</strong> </button>
-                      
-                    // ) :  (
-                    //   <div class="center">
-                    //     <button
-                    //       className="button"
-                    //       onClick={async () => {
-                    //         try {
-                    //           await contract.feeIncrement(studentId, id);
-                    //         } catch (error) {
-                    //           toast.error(`Contract Interaction Error ${error}`,{
-                    //             position: toast.POSITION.TOP_CENTER
-                    //           })
-                    //         }
-                          
-                    //       }}
-                    //     >
-                    //     <strong>{_feeAmt} Update bal</strong>  
-                    //     </button>
-                    //   </div>
-                    // )
+                    
                     }
                   </div>
                 </div>

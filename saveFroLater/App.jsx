@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import erc20abi from "./ERC20abi.json";
-import greeterabi from './greeterABI.json'
+import greeterabi from "./greeterABI.json";
 import GreetMsg from "./GreetMsg";
 import Form from "./Form";
 
@@ -10,17 +10,17 @@ import TxList from "./TxList";
 export default function App() {
   const [txs, setTxs] = useState([]);
   const [contractListened, setContractListened] = useState();
-  const [greet,setGreet] = useState("");
-  
+  const [greet, setGreet] = useState("");
+
   const [contractInfo, setContractInfo] = useState({
     address: "-",
     tokenName: "-",
     tokenSymbol: "-",
-    totalSupply: "-"
+    totalSupply: "-",
   });
   const [balanceInfo, setBalanceInfo] = useState({
     address: "-",
-    balance: "-"
+    balance: "-",
   });
 
   useEffect(() => {
@@ -41,8 +41,8 @@ export default function App() {
             txHash: event.transactionHash,
             from,
             to,
-            amount: String(amount)
-          }
+            amount: String(amount),
+          },
         ]);
       });
       setContractListened(erc20);
@@ -63,22 +63,22 @@ export default function App() {
     const tokenName = await erc20.name();
     const tokenSymbol = await erc20.symbol();
     const totalSupply = await erc20.totalSupply();
-    
-    const greetAddress = '0x2d86EC1a89e2411C495880651E5e93e91666D5b9'
-    const greetContract  = new ethers.Contract(greetAddress, greeterabi, provider);
+
+    const greetAddress = "0x2d86EC1a89e2411C495880651E5e93e91666D5b9";
+    const greetContract = new ethers.Contract(
+      greetAddress,
+      greeterabi,
+      provider
+    );
     const msg = await greetContract.greet();
     const branch = await greetContract.getBranch();
     setGreet(msg);
-
-
-
-
 
     setContractInfo({
       address: data.get("addr"),
       tokenName,
       tokenSymbol,
-      totalSupply
+      totalSupply,
     });
   };
 
@@ -92,7 +92,7 @@ export default function App() {
 
     setBalanceInfo({
       address: signerAddress,
-      balance: String(balance)
+      balance: String(balance),
     });
   };
 
@@ -106,16 +106,18 @@ export default function App() {
     await erc20.transfer(data.get("recipient"), data.get("amount"));
   };
 
-  const getBranch=async(e)=> 
-    {
-    const greetAddress = '0x2d86EC1a89e2411C495880651E5e93e91666D5b9'
+  const getBranch = async (e) => {
+    const greetAddress = "0x2d86EC1a89e2411C495880651E5e93e91666D5b9";
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const greetContract  = new ethers.Contract(greetAddress, greeterabi, provider);
+    const greetContract = new ethers.Contract(
+      greetAddress,
+      greeterabi,
+      provider
+    );
     //const msg = await greetContract.greet();
     const branch = await greetContract.getBranch();
     setGreet(branch);
-
-    }
+  };
 
   return (
     <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
@@ -160,7 +162,7 @@ export default function App() {
                     <tr>
                       <th>{contractInfo.tokenName}</th>
                       <td>{contractInfo.tokenSymbol}</td>
-                      
+
                       <td>{String(contractInfo.totalSupply)}</td>
                       <td>{greet}</td>
                       <td>{contractInfo.deployedAt}</td>
@@ -247,16 +249,15 @@ export default function App() {
       </div>
 
       <button
-                onClick={getBranch}
-                type="submit"
-                className="btn btn-primary submit-button focus:ring focus:outline-none w-full"
-              >
-                check Button
-              </button>
+        onClick={getBranch}
+        type="submit"
+        className="btn btn-primary submit-button focus:ring focus:outline-none w-full"
+      >
+        check Button
+      </button>
 
-              <GreetMsg/>
-              <Form/>
-
+      <GreetMsg />
+      <Form />
     </div>
   );
 }

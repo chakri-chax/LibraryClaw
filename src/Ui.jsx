@@ -108,30 +108,30 @@ toast.configure()
                 
                 <div className="connect">
                   <div className="div-wrapper">
-                    <button onClick={handleConnect} className="text-wrapper">{buttonText}</button>
+                    <button style = {{border:"none",background:"none"}}onClick={handleConnect} className="text-wrapper">{buttonText}</button>
                   </div>
                 </div>
                 <div className="sign-up">
                   <div className="div-wrapper">
-                    <button onClick={hadleSignUp} className="text-wrapper">SignUp</button>
+                    <button style = {{border:"none",background:"none"}}onClick={hadleSignUp} className="text-wrapper">SignUp</button>
                   </div>
                 </div>
               </div>
             </div>
             <div className="navbar">
               <img className="pngwing" alt="Pngwing" src={pngwing} />
-              <button  className="text-wrapper-2">Home</button>
-              <button onClick={handleBorrow} className="text-wrapper-3">Borrow</button>
-              <button onClick={handleStore} className="text-wrapper-4">Store</button>
-              <button onClick={handleInfo} className="text-wrapper-5">Info</button>
-              {/* <button onClick={handleInfo} className="text-wrapperInfo">Info</button> */}
+              <button style = {{border:"none",background:"none"}} className="text-wrapper-2">Home</button>
+              <button style = {{border:"none",background:"none"}}onClick={handleBorrow} className="text-wrapper-3">Borrow</button>
+              <button style = {{border:"none",background:"none"}}onClick={handleStore} className="text-wrapper-4">Store</button>
+              <button style = {{border:"none",background:"none"}}onClick={handleInfo} className="text-wrapper-5">Info</button>
+              {/* <button style = {{border:"none",background:"none"}}onClick={handleInfo} className="text-wrapperInfo">Info</button> */}
               {/* <Link className='text-wrapper-6' href="http://geeksforgeeks.org/"
                 onClick={() => {
                     alert("Redirecting to GeeksforGeeks");
                 }}>Library Claw
               </Link> */}
               <a href="https://cosmoclaw.com/">
-              <button  className="text-wrapper-6">Library Claw</button>
+              <button style = {{border:"none",background:"none"}} className="text-wrapper-6">Library Claw</button>
 
               </a>
               
@@ -171,7 +171,7 @@ toast.configure()
                 </div>
               </div>
             </div>
-            <button onClick={handleStore} className="arrow">
+            <button style = {{border:"none",background:"none"}}onClick={handleStore} className="arrow">
               <div className="overlap-3">
                 <div className="arrow-circle" />
                 <img className="arrow-removebg" alt="Arrow removebg" src={arrow} />

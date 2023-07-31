@@ -5,10 +5,10 @@ import logo from "./images/pngwing.png";
 import physics from "./images/physics.jpg";
 import searchLogo from "./images/search.png";
 import { useNavigate } from "react-router-dom";
-import {toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-toast.configure()
+toast.configure();
 const FigmaBooks = () => {
   const [img, setImg] = useState(physics);
   const [title, setTitle] = useState("Applied Physics");
@@ -18,29 +18,30 @@ const FigmaBooks = () => {
   const [plot, setPlot] = useState("Not Available");
   const [search, setSearch] = useState("");
   const [id, setId] = useState("");
-  const [publisher,setPublisher] = useState("Narmada Publisher")
-  const [subTitle,setSubtitle] = useState("Subtitle Here")
+  const [publisher, setPublisher] = useState("Narmada Publisher");
+  const [subTitle, setSubtitle] = useState("Subtitle Here");
 
   let navigate = useNavigate();
   const handleHome = () => navigate(`/`);
   const handleStore = () => navigate(`/MyBooks`);
-  const handleBorrow = () => navigate(`/Borrow`,{state:{bookId:id,
-    bookName:title}});
-    const handleInfo =()=>navigate(`/info`)
-  const handlePayFee = () => navigate(`/MyBooks/TransactionQr` );
-  const handleRead = ()=> navigate(`/Book`,{state:{ 
-    title : title,
-    author : author,
-    pages : pages,
-    reviews:reviews,
-    plot:plot,
-    id:id,
-    img:img,
-    publisher:publisher,
-    subTitle:subTitle
-
-  }})
-  
+  const handleBorrow = () =>
+    navigate(`/Borrow`, { state: { bookId: id, bookName: title } });
+  const handleInfo = () => navigate(`/info`);
+  const handlePayFee = () => navigate(`/MyBooks/TransactionQr`);
+  const handleRead = () =>
+    navigate(`/Book`, {
+      state: {
+        title: title,
+        author: author,
+        pages: pages,
+        reviews: reviews,
+        plot: plot,
+        id: id,
+        img: img,
+        publisher: publisher,
+        subTitle: subTitle,
+      },
+    });
 
   const [data, setData] = useState([]);
   const api = new GoogleBooksAPI({
@@ -48,7 +49,6 @@ const FigmaBooks = () => {
   });
 
   async function fetchBooks() {
-  
     const books = await api.search({
       filters: {
         title: search,
@@ -59,110 +59,101 @@ const FigmaBooks = () => {
     const data = books.items;
 
     setData(data);
-     console.log("data", data);
+    console.log("data", data);
   }
 
-  useEffect((e) => {
+  useEffect((_e) => {
     // e.preventDefault()
-    setSearch(search)
-    
+    setSearch(search);
+
     console.log("search", search);
   }, []);
 
- 
-
   const handleSearch = (evt) => {
-
-    if(evt.key === "Enter"){ 
+    if (evt.key === "Enter") {
       fetchBooks();
       console.log("Hello");
-      setSearch("")
-
+      setSearch("");
     }
   };
 
   return (
     <div className="books">
-      {/* <button
-        onClick={() => {
-          fetchBooks();
-        }}
-      >
-        Search
-      </button>
-      <h1>Books</h1> */}
-
+     
       <div className="div">
         <div className="overlap">
           <div className="overlap-group">
-            <div className="booksbox" style={{display:"grid"}}>
-              <div className=" Books" style={{display:"inline-grid"}}>
-
+            <div className="booksbox" style={{ display: "grid" }}>
+              <div className=" Books" style={{ display: "inline-grid" }}>
                 <div className="scrollView">
-                <div class="grid-container">
-                  {data?.map((book) => (
+                  <div class="grid-container">
+                    {data?.map((book) => (
+                      <div key={book.id}>
+                        {/* {console.log(book.id)} */}
 
-                    
-                    <div key={book.id}>
-                      {/* {console.log(book.id)} */}
-
-                      <div className="partialGrid">
-                        <img
-                          className="grid-container"
-                          src={
-                            book.volumeInfo.imageLinks &&
-                            book.volumeInfo.imageLinks.smallThumbnail
-                          }
-                        />
-                      </div>
-
-                      <h3>
-                        Title <br /> {book.volumeInfo.title}
-                        
-                      </h3>
-                      <h4>Author : {book.volumeInfo.authors}</h4>
-                   
-
-                      <button type="button" style={{background:"#f3cacccb",borderRadius:"5px",
-                      border:"3px solid black",top:"2px",fontWeight:"normal"}}
-                        onClick={() => {
-                          setId(book.id);
-                          setAuthor(book.volumeInfo.authors);
-
-                          setTitle(book.volumeInfo.title);
-                          setPages(book.volumeInfo.pageCount);
-                          setPublisher(book.volumeInfo.publisher)
-                          setSubtitle(book.volumeInfo.subTitle)
-                          console.log(book.volumeInfo.publisher);
-                          // setPdfLink()
-                          setReviews();
-                          setImg(
-                            book.volumeInfo.imageLinks &&
+                        <div className="partialGrid">
+                          <img
+                            className="grid-container"
+                            src={
+                              book.volumeInfo.imageLinks &&
                               book.volumeInfo.imageLinks.smallThumbnail
-                          );
-                          setPlot(book.volumeInfo.description);
-                        }}
-                        
-                      >
-                                 <strong>Preview</strong>
-                      </button>
-                     
-                    </div>
-                  /*addes*/))}
-                </div>
+                            }
+                          />
+                        </div>
+
+                        <h3>
+                          Title <br /> {book.volumeInfo.title}
+                        </h3>
+                        <h4>Author : {book.volumeInfo.authors}</h4>
+
+                        <button
+                          type="button"
+                          style={{
+                            background: "#f3cacccb",
+                            borderRadius: "5px",
+                            border: "3px solid black",
+                            top: "2px",
+                            fontWeight: "normal",
+                          }}
+                          onClick={() => {
+                            setId(book.id);
+                            setAuthor(book.volumeInfo.authors);
+
+                            setTitle(book.volumeInfo.title);
+                            setPages(book.volumeInfo.pageCount);
+                            setPublisher(book.volumeInfo.publisher);
+                            setSubtitle(book.volumeInfo.subTitle);
+                            console.log(book.volumeInfo.publisher);
+                            // setPdfLink()
+                            setReviews();
+                            setImg(
+                              book.volumeInfo.imageLinks &&
+                                book.volumeInfo.imageLinks.smallThumbnail
+                            );
+                            setPlot(book.volumeInfo.description);
+                          }}
+                        >
+                          <strong>Preview</strong>
+                        </button>
+                      </div>
+                      /*addes*/
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
             <div className="search">
               <div className="overlp-3">
-                {/* <div className="text-wrapper-5">Search</div> */}
+               
                 <input
                   className="text-wrapper-5"
                   placeholder="   Enter your book name here"
                   type="text"
                   value={search}
-                  onChange={(e) => {e.preventDefault()
-                     setSearch(e.target.value)}}
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setSearch(e.target.value);
+                  }}
                   onKeyDown={handleSearch}
                 />{" "}
                 <br />
@@ -195,41 +186,68 @@ const FigmaBooks = () => {
               <br />
               {plot}
             </p>
-            <div  className="connect">
+            <div className="connect">
               <div className="div-wrapper">
-                <button onClick={handleRead} className="text-wrapper-11">Read</button>
+                <button
+                  style={{ border: "none", background: "none" }}
+                  onClick={handleRead}
+                  className="text-wrapper-11"
+                >
+                  Read
+                </button>
               </div>
             </div>
 
-           
-              <div className="div-wrapperBorrow">
-                <button onClick={handleBorrow}className="text-wrapper-12">
-                  Borrow
-                </button>
-              </div>
-          
+            <div className="div-wrapperBorrow">
+              <button
+                style={{ border: "none", background: "none" }}
+                onClick={handleBorrow}
+                className="text-wrapper-12"
+              >
+                Borrow
+              </button>
+            </div>
           </div>
         </div>
         <div className="overlap-group-wrapper">
-          {/* <div className="overlap-group-3">
-            <div className="text-wrapper-12">CONNECT</div>
-          </div> */}
+          
         </div>
         <div className="navbar">
           <img className="pngwing" alt="Pngwing" src={logo} />
-          <button onClick={handleHome} className="text-wrapper-13">
+          <button
+            style={{ border: "none", background: "none" }}
+            onClick={handleHome}
+            className="text-wrapper-13"
+          >
             Home
           </button>
-          <button onClick={handleBorrow} className="text-wrapper-14">
+          <button
+            style={{ border: "none", background: "none" }}
+            onClick={handleBorrow}
+            className="text-wrapper-14"
+          >
             Borrow
           </button>
-          <button onClick={handleStore} className="text-wrapper-15">
+          <button
+            style={{ border: "none", background: "none" }}
+            onClick={handleStore}
+            className="text-wrapper-15"
+          >
             Store
           </button>
-          <button onClick={handleInfo} className="text-wrapper-16">
+          <button
+            style={{ border: "none", background: "none" }}
+            onClick={handleInfo}
+            className="text-wrapper-16"
+          >
             Info
           </button>
-          <button className="text-wrapper-17">Library Claw</button>
+          <button
+            style={{ border: "none", background: "none" }}
+            className="text-wrapper-17"
+          >
+            Library Claw
+          </button>
         </div>
       </div>
     </div>

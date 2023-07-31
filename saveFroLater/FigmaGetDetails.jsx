@@ -1,14 +1,11 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import abi from "../src/abis/libraryV5.json";
 import { ethers } from "ethers";
-import Fetch from "./Fetch";
 import { useNavigate } from "react-router-dom";
 import "./Form.css";
 
 const FigmaGetDetails = () => {
-
-  
   const contractAddress = "0xA4b8295191DA40ad3b84811aebb86F3D512B98a9";
   const contractABI = abi;
 
@@ -20,7 +17,7 @@ const FigmaGetDetails = () => {
   console.log("My Books");
   const [books, setBooks] = useState([]);
   const [studentId, setStudentId] = useState("");
-  const [bookSerial,setBookSeial] = useState()
+  const [bookSerial, setBookSeial] = useState();
   const [fee, setFee] = useState();
 
   let navigate = useNavigate();
@@ -29,10 +26,6 @@ const FigmaGetDetails = () => {
     let path = `/MyBooks/TransactionQr`;
     navigate(path);
   };
-
-  // const updateBal = async (studentId, id) => {
-  //   await contract.feeIncrement(studentId, id);
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,14 +36,11 @@ const FigmaGetDetails = () => {
     while (true) {
       console.log(studentId);
       console.log(i);
-  
+
       const myBook = await contract.GetDetails(studentId, i);
 
-      //console.log("Book", myBook);
-      
-
       const fee = ethers.utils.formatEther(myBook.lateFee);
-      const bookSerial = ethers.utils.formatUnits(myBook.bookSerial)
+      const bookSerial = ethers.utils.formatUnits(myBook.bookSerial);
       console.log("Book serial");
       console.log("Fee", fee);
       setFee(fee);
@@ -74,7 +64,7 @@ const FigmaGetDetails = () => {
         _bookName,
         _bookId,
         _feeAmt,
-        _studentName
+        _studentName,
       };
 
       setBooks((books) => {
@@ -82,27 +72,27 @@ const FigmaGetDetails = () => {
       });
     }
   };
- const  handleFetch = (_feeAmt,_bookId,_bookName,_studentId,_studentName)=>{
-   navigate(`/MyBooks/TransactionQr`,{
-
-    state: {
+  const handleFetch = (
+    _feeAmt,
+    _bookId,
+    _bookName,
+    _studentId,
+    _studentName
+  ) => {
+    navigate(`/MyBooks/TransactionQr`, {
+      state: {
         message: "Export Values",
-        amt : _feeAmt,
-        bookId : _bookId,
-        bookName : _bookName,
-        studentId :_studentId,
-        studentName :_studentName,
-
-
-    },
-})
-
-    
-  }
+        amt: _feeAmt,
+        bookId: _bookId,
+        bookName: _bookName,
+        studentId: _studentId,
+        studentName: _studentName,
+      },
+    });
+  };
 
   return (
     <>
-      
       <div className="home-page">
         <br />
         <br />
@@ -135,7 +125,7 @@ const FigmaGetDetails = () => {
         <div>
           <div class="grid-container">
             {books.map((book) => {
-              const { id, _bookId, _bookName, _feeAmt ,_studentName} = book;
+              const { id, _bookId, _bookName, _feeAmt, _studentName } = book;
               <h1 align="center">
                 {/* <span></span><strong>{studentId}</strong> */}
                 {{ studentId } ? studentId : ""}
@@ -146,10 +136,21 @@ const FigmaGetDetails = () => {
                   <div key={id}>
                     <h4>Book Id :{_bookId}</h4>
                     <h4>Book Name :{_bookName}</h4>
-                    
+
                     {_feeAmt > 0 && _feeAmt < 1000 ? (
-                      <button onClick={()=>{handleFetch(_feeAmt,_bookId,_bookName,studentId,_studentName); console.log("Clicked",_feeAmt);}} className="button">{`Pay ${_feeAmt} Wei`}</button>
-                      
+                      <button
+                        onClick={() => {
+                          handleFetch(
+                            _feeAmt,
+                            _bookId,
+                            _bookName,
+                            studentId,
+                            _studentName
+                          );
+                          console.log("Clicked", _feeAmt);
+                        }}
+                        className="button"
+                      >{`Pay ${_feeAmt} Wei`}</button>
                     ) : (
                       <div class="center">
                         <button
@@ -169,9 +170,7 @@ const FigmaGetDetails = () => {
           </div>
         </div>
       </div>
-     
     </>
-  
   );
 };
 
