@@ -55,7 +55,7 @@ const FigmaInfo = () => {
   const [fee,setFee] = useState()
   let [transactionState, setTransactionState] = useState(0);
 
-
+useEffect(()=>{setStudentId(studentId)})
   // console.log("Book Name", _bookName);
   // console.log("Book ID",_bookId);
   const handleSubmit = async (e) => {try {
@@ -326,13 +326,15 @@ const FigmaInfo = () => {
 
 
                               await contract.feeIncrement(studentId, id);
+                              await delay(15000)
+                              window.location.reload();
                             } catch (error) {
                               toast.error(`Contract Interaction Error ${error}`,{
                                 position: toast.POSITION.TOP_CENTER
                               })
                             }
                           
-                          }}>Update Bal</button>:""}
+                          }}>Update Fee</button>:""}
 
 
                     {_feeAmt >= 15 ? (
@@ -344,7 +346,7 @@ const FigmaInfo = () => {
                           
                           }}
                         >
-                        <strong> Pay {_feeAmt /1000} Matics </strong>  
+                        <strong> Pay {_feeAmt /1000} Matics and Submit </strong>  
                         </button>
                       </div>
                     ) :<strong>Late Fee : 0</strong>

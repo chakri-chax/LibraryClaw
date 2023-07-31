@@ -23,6 +23,10 @@ toast.configure()
 
 
  const Ui = () => {
+
+  useEffect(()=>{
+    toast.info("Customize your screen size for better experience")
+  },[])
   const [buttonText,setButtonText] = useState("Connect")
   console.log("Hello");
 

@@ -35,6 +35,96 @@
     top: 0;
     width: 1696px;
   }
+
+
+  /* Default styles */
+.desktop {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 80%;
+}
+
+.desktop .overlap-wrapper {
+  background-color: #ffffff;
+  border: 1px none;
+  height: 1080px;
+  width: 1920px;
+}
+
+.desktop .overlap {
+  height: 994px;
+  left: 224px;
+  position: relative;
+  width: 1696px;
+}
+
+/* Media query for screens with a maximum width of 1440px */
+@media screen and (max-width: 1440px) {
+  .desktop {
+    width: 65%;
+  }
+
+  .desktop .overlap-wrapper {
+    width: 1440px;
+  }
+
+  .desktop .overlap {
+    width: 936px;
+  }
+
+  /* Update other styles as needed for responsiveness */
+  /* ... */
+}
+
+/* Media query for screens with a maximum width of 1024px */
+@media screen and (max-width: 1024px) {
+  .desktop {
+    width: 50%;
+  }
+
+  .desktop .overlap-wrapper {
+    width: 1024px;
+  }
+
+  .desktop .overlap {
+    width: 700px;
+  }
+
+  /* Update other styles as needed for responsiveness */
+  /* ... */
+}
+
+/* Media query for screens with a maximum width of 768px */
+@media screen and (max-width: 768px) {
+  .desktop {
+    width: 100%;
+  }
+
+  .desktop .overlap-wrapper {
+    width: 768px;
+  }
+
+  .desktop .overlap {
+    width: 500px;
+  }
+
+  /* Update other styles as needed for responsiveness */
+  /* ... */
+}
+
+/* Additional media queries as needed for smaller screen sizes */
+
+/* Styles for mobile screens with a maximum width of 480px */
+@media screen and (max-width: 480px) {
+  .desktop {
+    /* Update styles for the smallest screen size */
+  }
+
+  /* ... Update other styles as needed for responsiveness ... */
+}
+
   
   .desktop .div {
     height: 994px;
