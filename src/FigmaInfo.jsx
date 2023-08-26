@@ -35,7 +35,7 @@ const FigmaInfo = () => {
 
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
   const [books, setBooks] = useState([]);
-  const contractAddress = "0x2bE6C57547e11a305fb7Bc5D9B21f684D7fB92a3";
+  const contractAddress = "0x56C655714E5E6f9038b4294D0dC578EB53F155fA";
   const contractABI = abi;
 
   console.log("In Figma Info");

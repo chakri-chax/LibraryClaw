@@ -62,7 +62,7 @@ const [hash,setHash] = useState('0x7cd23........c43f')
 
         console.log("Details", exportPerson.studentId);
 
-        const contractAddress = "0x2bE6C57547e11a305fb7Bc5D9B21f684D7fB92a3";
+        const contractAddress = "0x56C655714E5E6f9038b4294D0dC578EB53F155fA";
         const contractABI = abi;
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
@@ -83,7 +83,7 @@ const [hash,setHash] = useState('0x7cd23........c43f')
        setHash((hashCode));
         console.log(hash);
         await Borrow.wait();
-        sendEmail();
+        // sendEmail();
 
         setPeople((people) => {
           return [...people, person];

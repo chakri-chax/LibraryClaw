@@ -34,7 +34,7 @@ const TransacQrForm = () => {
   const location = useLocation();
   console.log("location", location);
 
-  const contractAddress = "0x2bE6C57547e11a305fb7Bc5D9B21f684D7fB92a3";
+  const contractAddress = "0x56C655714E5E6f9038b4294D0dC578EB53F155fA";
 
   const contractABI = abi;
 
@@ -137,7 +137,7 @@ useEffect (()=>{toast.info("Update your fee before pay")},[])
              const payment =  await contract.payFee(_studentId, _bookSerial, _feeAmt);
               const hash = payment.hash;
               setHash(hash)
-              sendEmail(_studentName,_studentId,_bookName,_feeAmt,_bookId,currentDate,hash);
+              // sendEmail(_studentName,_studentId,_bookName,_feeAmt,_bookId,currentDate,hash);
             } catch (error) {
               alert(`Error  :${error}`);
               toast.error(`Error  :${error.data}`, {
