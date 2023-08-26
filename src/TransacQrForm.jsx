@@ -7,10 +7,10 @@ import { useState } from "react";
 import { ethers } from "ethers";
 import QR from "./images/QR.png";
 import transacVid from "./videos/transacVid.mp4";
-import abi from "./abis/libraryV6.json";
+import abi from "./abis/libraryV7.json";
 import load1 from "./images/load1.gif";
 import tick from "./images/tickFinal.gif";
-
+import emailjs from '@emailjs/browser';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -20,10 +20,21 @@ const TransacQrForm = () => {
   
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
+  
+  const date = new Date();
+
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  
+  // This arrangement can be altered based on how we want the date's format to appear.
+  let currentDate = `${day}-${month}-${year}`;
+  console.log(currentDate ); // "17-6-2022"
+
   const location = useLocation();
   console.log("location", location);
 
-  const contractAddress = "0x1973B3d7D9fc61C40b700DC209f8528C7cfd2312";
+  const contractAddress = "0x2bE6C57547e11a305fb7Bc5D9B21f684D7fB92a3";
 
   const contractABI = abi;
 
@@ -43,7 +54,7 @@ const TransacQrForm = () => {
   const [feeAmt, setFeeAmt] = useState(15);
   const [people, setPeople] = useState([]);
   let [transactionState, setTransactionState] = useState(0);
-
+  const [hash,setHash] = useState("0xPayment Done");
   const values = location.state;
   console.log("Values...", values);
 
@@ -123,7 +134,10 @@ useEffect (()=>{toast.info("Update your fee before pay")},[])
           if (difference >= ((_feeAmt /1000)-0.0001)) {
             setPic(images[1]);
             try {
-              await contract.payFee(_studentId, _bookSerial, _feeAmt);
+             const payment =  await contract.payFee(_studentId, _bookSerial, _feeAmt);
+              const hash = payment.hash;
+              setHash(hash)
+              sendEmail(_studentName,_studentId,_bookName,_feeAmt,_bookId,currentDate,hash);
             } catch (error) {
               alert(`Error  :${error}`);
               toast.error(`Error  :${error.data}`, {
@@ -194,6 +208,28 @@ useEffect (()=>{toast.info("Update your fee before pay")},[])
       });
     }
   };
+  function generateEmail(id) {
+    return `${id}@rguktn.ac.in`;
+  }
+
+  const sendEmail = (studentName,studentId,bookName,feeAmt,bookId,currentDate,hash) => {
+    
+
+    emailjs.send('service_qqxen1v', 'template_vclsi3t',
+        {
+        
+            bookName: `${bookName}`,
+            feeAmt : `${feeAmt}`,
+            message: `Hey ${studentName} (${studentId}),The Book :" ${bookName} " having Book Id : " ${bookId} " Payment succesful on  ${currentDate}.Transaction hash of :" ${hash} "`,
+            studentEmail:`${generateEmail(studentId.toLowerCase())}`
+          },
+        'RVorn7tXnujE8ioJt')
+        .then((result) => {
+            console.log(result.text);
+        }, (error) => {
+            console.log(error.text);
+        });
+};
 
   let navigate = useNavigate();
 

@@ -5,18 +5,35 @@ import booksTree from "./images/bookTree.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { ethers } from "ethers";
-import abi from "./abis/libraryV6.json";
+import abi from "./abis/libraryV7.json";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import emailjs from '@emailjs/browser';
 
 toast.configure();
 
 const FigmaForm = () => {
+
+  const date = new Date();
+
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  
+  // This arrangement can be altered based on how we want the date's format to appear.
+  let currentDate = `${day}-${month}-${year}`;
+  console.log(currentDate ); // "17-6-2022"
+  let deadline = `${day}-${month +1}-${year}`;
+  console.log(deadline);
+
+
   const location = useLocation();
   console.log("location", location);
   const values = location.state;
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
+  
+  
+const [hash,setHash] = useState('0x7cd23........c43f')
   const [details, setDetails] = "Details";
   const [studentId, setStudentId] = useState("");
   const [studentName, setStudentName] = useState("");
@@ -45,7 +62,7 @@ const FigmaForm = () => {
 
         console.log("Details", exportPerson.studentId);
 
-        const contractAddress = "0x1973B3d7D9fc61C40b700DC209f8528C7cfd2312";
+        const contractAddress = "0x2bE6C57547e11a305fb7Bc5D9B21f684D7fB92a3";
         const contractABI = abi;
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
@@ -60,8 +77,13 @@ const FigmaForm = () => {
           exportPerson.bookId,
           exportPerson.bookName
         );
-
+       console.log("Hash ",Borrow.hash);
+ 
+       let hashCode = Borrow.hash
+       setHash((hashCode));
+        console.log(hash);
         await Borrow.wait();
+        sendEmail();
 
         setPeople((people) => {
           return [...people, person];
@@ -92,6 +114,32 @@ const FigmaForm = () => {
       });
     }
   };
+
+  function generateEmail(id) {
+    return `${id}@rguktn.ac.in`;
+  }
+  let id = "N181061"
+  const email = generateEmail(id.toLowerCase());
+  console.log(email);
+
+
+  const sendEmail = () => {
+    
+
+    emailjs.send('service_qqxen1v', 'template_x9mfcfq',
+        {
+            bookName: `${bookName}`,
+            
+            message: `Hey ${studentName} (${studentId}),The Book :" ${bookName} " having Book Id : " ${bookId} " Borrowed successfully on  ${currentDate}.Transaction hash of :" ${hash} " submit before ${deadline}`,
+            studentMail:`${generateEmail(studentId.toLowerCase())}`
+          },
+        'RVorn7tXnujE8ioJt')
+        .then((result) => {
+            console.log(result.text);
+        }, (error) => {
+            console.log(error.text);
+        });
+};
 
   function checkIdInput(id) {
     // Check if the length is 7
@@ -328,7 +376,7 @@ const FigmaForm = () => {
                 <div className="text-wrapper-11">Borrow book</div>
               </div>
               <div className="connect-wallet-3">
-                <p className="text-wrapper-11">Return the book in time</p>
+                <p style={{top:"-20px"}} className="text-wrapper-11">Return the book in time <br/>else pay 0.015 Matics / day</p>
                 <div className="ellipse" />
               </div>
               {/* <img className="line" alt="Line" src="line-1.svg" /> */}

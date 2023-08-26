@@ -11,7 +11,7 @@ import { ethers } from "ethers";
 import QR from './images/QR.png'
 import buttonText from "./Ui";
 import transacVid from './videos/transacVid.mp4'
-import abi from "./abis/libraryV6.json";
+import abi from "./abis/libraryV7.json";
 import load1 from "./images/load1.gif";
 import tick from "./images/tickFinal.gif";
 import Popup from "reactjs-popup";
@@ -35,7 +35,7 @@ const FigmaInfo = () => {
 
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
   const [books, setBooks] = useState([]);
-  const contractAddress = "0x1973B3d7D9fc61C40b700DC209f8528C7cfd2312";
+  const contractAddress = "0x2bE6C57547e11a305fb7Bc5D9B21f684D7fB92a3";
   const contractABI = abi;
 
   console.log("In Figma Info");
@@ -118,7 +118,8 @@ useEffect(()=>{setStudentId(studentId)})
       }
     
   } catch (error) {
-    toast.error(`Install and connect Metamask`)
+    // toast.error(`Install and connect Metamask`)
+    alert(error);
   }};
   function timestampToIST(timestamp) {
     const milliseconds = timestamp * 1000;
@@ -293,16 +294,17 @@ useEffect(()=>{setStudentId(studentId)})
               value={studentId}
             />{" "}
             <br />
+            <div className="center">
+            <button onClick={handleSubmit} >My Books</button>
+          </div>
           </div>
 
           <br />
 
-          <div class="center">
-            <button>My Books</button>
-          </div>
+          
         </form>
-        <div>
-          <div class="grid-container" style={{overflowY:"auto",overflowX:"hidden",height:"430px",marginLeft:"-50px",marginTop:"10px",textAlign:"center"}}>
+      
+          <div class="grid-container" style={{overflowY:"auto",overflowX:"hidden",height:"388px",marginLeft:"-50px",marginTop:"10px",textAlign:"center"}}>
             
             {books.map((book) => {
               const { id, _bookId, _bookName, _feeAmt ,_studentName,_bookSerial,_borrowTime} = book;
@@ -327,7 +329,7 @@ useEffect(()=>{setStudentId(studentId)})
 
                               await contract.feeIncrement(studentId, id);
                               await delay(15000)
-                              window.location.reload();
+                             
                             } catch (error) {
                               toast.error(`Contract Interaction Error ${error}`,{
                                 position: toast.POSITION.TOP_CENTER
@@ -359,7 +361,7 @@ useEffect(()=>{setStudentId(studentId)})
               );
             })}
           </div>
-        </div>
+        
       </div>
 
             
