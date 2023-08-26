@@ -83,7 +83,7 @@ const [hash,setHash] = useState('0x7cd23........c43f')
        setHash((hashCode));
         console.log(hash);
         await Borrow.wait();
-        // sendEmail();
+       sendEmail();
 
         setPeople((people) => {
           return [...people, person];
