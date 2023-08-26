@@ -137,7 +137,7 @@ useEffect (()=>{toast.info("Update your fee before pay")},[])
              const payment =  await contract.payFee(_studentId, _bookSerial, _feeAmt);
               const hash = payment.hash;
               setHash(hash)
-              // sendEmail(_studentName,_studentId,_bookName,_feeAmt,_bookId,currentDate,hash);
+               sendEmail(_studentName,_studentId,_bookName,_feeAmt,_bookId,currentDate,hash);
             } catch (error) {
               alert(`Error  :${error}`);
               toast.error(`Error  :${error.data}`, {
