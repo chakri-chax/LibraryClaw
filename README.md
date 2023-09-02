@@ -1,4 +1,4 @@
-# Steps to Dapp
+# Library Claw
 
 This repository contains the steps to create a decentralized application (Dapp) using Create React App and Ethereum technology.
 
