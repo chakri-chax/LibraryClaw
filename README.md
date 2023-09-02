@@ -1,5 +1,6 @@
 # Library Claw
-<img width="1470" alt="Screenshot 2023-09-02 at 21 44 51" src="https://github.com/chakri-chax/LibraryClaw/assets/72123758/b160e862-915b-4b63-bcea-553dea3f9c7b">
+<img width="1278" alt="Screenshot 2023-09-02 at 22 01 08" src="https://github.com/chakri-chax/LibraryClaw/assets/72123758/b38ea072-b2f5-484f-91ea-d2ffc6b249dd">
+
 
 Youtube : (https://youtu.be/UWrYm_4UizQ?si=8sUrYMxW33uYLhrr)
 View in Youtube.\
