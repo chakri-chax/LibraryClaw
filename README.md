@@ -3,7 +3,7 @@
 
 Youtube : (https://youtu.be/UWrYm_4UizQ?si=8sUrYMxW33uYLhrr)
 View in Youtube.\
-Open [https://youtu.be/UWrYm_4UizQ?si=8sUrYMxW33uYLhrr](https://youtu.be/UWrYm_4UizQ?si=8sUrYMxW33uYLhrr) .
+
 This repository contains the steps to create a decentralized application (Dapp) using Create React App and Ethereum technology.
 
 ## Getting Started with Create React App
