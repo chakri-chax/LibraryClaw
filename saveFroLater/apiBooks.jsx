@@ -6,8 +6,10 @@ import physics from "./images/physics.jpg";
 import search from "./images/search.png";
 import { useNavigate } from "react-router-dom";
 
+ 
 
 const FigmaBooks = () => {
+  //push check
   const [preBook,setPreBook] = useState()
   let navigate = useNavigate();
   const handleHome = () => navigate(`/`);
